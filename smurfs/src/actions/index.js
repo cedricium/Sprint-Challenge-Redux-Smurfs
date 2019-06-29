@@ -18,21 +18,21 @@ export const FETCH_FAILURE = 'FETCH_FAILURE'
    U - updateSmurf
    D - deleteSmurf
 */
-export const addSmurf = async dispatch => {
+export const addSmurf = smurf => async dispatch => {
   dispatch({ type: FETCHING_DATA })
   try {
-    const { data } = await axios.post()
-    dispatch({ type: FETCH_SUCCESSFUL, payload: data.something })
+    const { data } = await axios.post('http://localhost:3333/smurfs', smurf)
+    dispatch({ type: FETCH_SUCCESSFUL, payload: data })
   } catch (err) {
     dispatch({ type: FETCH_FAILURE, payload: err })
   }
 }
 
-export const getSmurfs = async dispatch => {
+export const getSmurfs = () => async dispatch => {
   dispatch({ type: FETCHING_DATA })
   try {
-    const { data } = await axios.get()
-    dispatch({ type: FETCH_SUCCESSFUL, payload: data.something })
+    const { data } = await axios.get('http://localhost:3333/smurfs')
+    dispatch({ type: FETCH_SUCCESSFUL, payload: data })
   } catch (err) {
     dispatch({ type: FETCH_FAILURE, payload: err })
   }
