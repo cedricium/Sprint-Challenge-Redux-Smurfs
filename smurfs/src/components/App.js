@@ -21,11 +21,59 @@ class App extends Component {
     this.props.getSmurfs()
   }
 
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  handleSubmit = e => {
+    e.preventDefault()
+    this.setState({
+      name: '',
+      age: 0,
+      height: '',
+    })
+    this.props.addSmurf({
+      ...this.state
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <form>
-
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Name:{` `}
+            <input
+              type="text"
+              name="name"
+              placeholder="Lambda Smurf"
+              value={this.state.name}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label>
+            Age:{` `}
+            <input
+              type="number"
+              name="age"
+              placeholder={142}
+              value={this.state.age}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label>
+            Height:{` `}
+            <input
+              type="text"
+              name="height"
+              placeholder="14 cm"
+              value={this.state.height}
+              onChange={this.handleChange}
+            />
+          </label>
+          <input type="submit" value="Add Smurf" />
         </form>
         <ul>
           {this.props.smurfs.map(smurf => (
